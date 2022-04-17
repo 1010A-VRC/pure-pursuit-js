@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Path Generation</title>
+  <link href="index.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+  <canvas id="c">
+  </canvas>
+
+  <script src="script/jquery.js"></script>
+
+  <div class="sliderContainer" style="position:absolute" id="sliderContainerDiv">
+
+    <input type="range" min="1" max="40" value="30" class="slider" style="position:absolute" id="slider1">
+    <span id="slider1_val" class="text"></span>
+    <label for="slider1" style="position:absolute" id="slider1_label">tolerance</label>
+
+    <input type="range" min="1" max="1000" value="500" class="slider" style="position:absolute" id="slider2">
+    <span id="slider2_val" class="text"></span>
+    <label for="slider2" style="position:absolute" id="slider2_label">scalar</label>
+
+    <input type="range" min="1" max="1000" value="500" class="slider" style="position:absolute" id="slider3">
+    <span id="slider3_val" class="text"></span>
+    <label for="slider3" style="position:absolute" id="slider3_label">lookahead</label>
+
+    <input type="range" min="1" max="100" value="50" class="slider" style="position:absolute" id="slider4">
+    <span id="slider4_val" class="text"></span>
+    <label for="slider4" style="position:absolute" id="slider4_label">turnK</label>
+
+    <input type="range" min="1" max="10000" value="5000" class="slider" style="position:absolute" id="slider5">
+    <span id="slider5_val" class="text"></span>
+    <label for="slider5" style="position:absolute" id="slider5_label">deceleration</label>
+
+    <input type="range" min="1" max="10000" value="5000" class="slider" style="position:absolute" id="slider6">
+    <span id="slider6_val" class="text"></span>
+    <label for="slider6" style="position:absolute" id="slider6_label">acceleration</label>
+  </div>
+
+  <a class="tooltip">
+    <span id="tooltip-span"></span>
+  </a>
+
+
+  <script src="script/lodash.js"></script>
+  <script src="script/vector.js"></script>
+  <script src="script/point.js"></script>
+  <script src="script/spline.js"></script>
+  <script src="script/pathgen.js"></script>
+  <script src="script/purepursuit.js"></script>
+  <script src="script/robot.js"></script>
+  <script src="script/canvas.js"></script>
+  <script src="script/waypoint.js"></script>
+  <script src="main.js"></script>
+
+
+</body>
+
+</html>
