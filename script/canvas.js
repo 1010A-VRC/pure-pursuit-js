@@ -20,14 +20,12 @@ const slider4_val_d = document.getElementById('slider4_val');
 const slider5_val_d = document.getElementById('slider5_val');
 const slider6_val_d = document.getElementById('slider6_val');
 
-const slider1_val_div = document.getElementById('slider1_val_div');
-const slider2_val_div = document.getElementById('slider2_val_div');
-const slider3_val_div = document.getElementById('slider3_val_div');
-const slider4_val_div = document.getElementById('slider4_val_div');
-const slider5_val_div = document.getElementById('slider5_val_div');
-const slider6_val_div = document.getElementById('slider6_val_div');
-
-
+const slider1_label_d = document.getElementById('slider1_label');
+const slider2_label_d = document.getElementById('slider2_label');
+const slider3_label_d = document.getElementById('slider3_label');
+const slider4_label_d = document.getElementById('slider4_label');
+const slider5_label_d = document.getElementById('slider5_label');
+const slider6_label_d = document.getElementById('slider6_label');
 
 var tooltip = document.getElementById('tooltip-span');
 var slider_container = document.getElementById('sliderContainerDiv');
@@ -94,10 +92,8 @@ function maintainCanvas() {
   slider6_val.innerHTML = sliders.maxAccel;
   maxAccel2 = sliders.maxAccel;
 
-  bottom_style7 = ("%d", window.innerHeight/8)*7 + "px";
-  bottom_style8 = ("%d", window.innerHeight) + "px";
-  left_style = ("%d", canvas.width + 20 + "px");
 
+  left_style = ("%d", canvas.width + 20 + "px");
   slider_container.style.left = left_style;
 
   bottom_style1 = ("%d", window.innerHeight/8) + "px";
@@ -105,36 +101,48 @@ function maintainCanvas() {
   slider1_div.style.left = "0px";
   slider1_val_d.style.bottom = ("%d", (window.innerHeight/8) + "px");
   slider1_val_d.style.left = "140px";
+  slider1_label_d.style.bottom = ("%d", ((window.innerHeight/8) + 20) + "px");
+  slider1_label_d.style.left = "35px";
 
   bottom_style2 = ("%d", window.innerHeight/8)*2 + "px";
   slider2_div.style.bottom = bottom_style2;
   slider2_div.style.left = "0px";
   slider2_val_d.style.bottom = ("%d", ((window.innerHeight/8)*2) + "px");
   slider2_val_d.style.left = "140px";
+  slider2_label_d.style.bottom = ("%d", (((window.innerHeight/8)*2) + 20) + "px");
+  slider2_label_d.style.left = "35px";
 
   bottom_style3 = ("%d", window.innerHeight/8)*3 + "px";
   slider3_div.style.bottom = bottom_style3;
   slider3_div.style.left = "0px";
   slider3_val_d.style.bottom = ("%d", ((window.innerHeight/8)*3) + "px");
   slider3_val_d.style.left = "140px";
+  slider3_label_d.style.bottom = ("%d", (((window.innerHeight/8)*3) + 20) + "px");
+  slider3_label_d.style.left = "35px";
 
   bottom_style4 = ("%d", window.innerHeight/8)*4 + "px";
   slider4_div.style.bottom = bottom_style4;
   slider4_div.style.left = "0px";
   slider4_val_d.style.bottom = ("%d", (window.innerHeight/8)*4 + "px");
   slider4_val_d.style.left = "140px";
+  slider4_label_d.style.bottom = ("%d", (((window.innerHeight/8)*4) + 20) + "px");
+  slider4_label_d.style.left = "35px";
 
   bottom_style5 = ("%d", window.innerHeight/8)*5 + "px";
   slider5_div.style.bottom = bottom_style5;
   slider5_div.style.left = "0px";
   slider5_val_d.style.bottom = ("%d", (window.innerHeight/8)*5 + "px");
   slider5_val_d.style.left = "140px";
+  slider5_label_d.style.bottom = ("%d", (((window.innerHeight/8)*5) + 20) + "px");
+  slider5_label_d.style.left = "35px";
 
   bottom_style6 = ("%d", window.innerHeight/8)*6 + "px";
   slider6_div.style.bottom = bottom_style6;
   slider6_div.style.left = "0px";
   slider6_val_d.style.bottom = ("%d", (window.innerHeight/8)*6 + "px");
   slider6_val_d.style.left = "140px";
+  slider6_label_d.style.bottom = ("%d", (((window.innerHeight/8)*6) + 20) + "px");
+  slider6_label_d.style.left = "35px";
 
 
   if (showRect) {
