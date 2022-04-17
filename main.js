@@ -43,14 +43,14 @@ function save(filename) {
 
 
 function main() {
-
+  /*
   // create a button which downloads a file with the info
   let btn = document.createElement("button");
   btn.onclick = function () {
     save("path.txt", path);
   };
   btn.innerHTML = "output line points and their velocities";
-  document.body.appendChild(btn);
+  document.body.appendChild(btn); */
 
   // set the background color
   document.body.style.backgroundColor = "gray";
