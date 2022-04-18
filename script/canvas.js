@@ -5,6 +5,8 @@
 const canvas = document.getElementById("c");
 const c = canvas.getContext("2d");
 
+const field = new Image();
+field.src = './images/field.png';
 
 var slider1_div = document.getElementById('slider1');
 var slider2_div = document.getElementById('slider2');
@@ -43,7 +45,7 @@ window.focus();
 //////////////////////////////////
 // Canvas Constants and Globals //
 //////////////////////////////////
-let canvasScale = 80; //ratio between simulated position and canvas position
+let canvasScale = 6.215; //ratio between simulated position and canvas position
 const marginOffset = 9; //correction for canvas choords vs window choords. related to margin
 
 const waypointWidth = 4;
@@ -65,10 +67,17 @@ let left_style;
 // Utility Functions //
 ///////////////////////
 function maintainCanvas() {
-  canvas.width = window.innerWidth/1.3 - marginOffset * 2;
-  canvas.height = window.innerHeight - 80;
-  c.lineWidth = 1;
+  if (window.innerWidth < window.innerHeight) {
+    canvas.height = window.innerWidth - marginOffset * 2;
+    canvas.width = canvas.height;
+  } else {
+    canvas.height = window.innerHeight - marginOffset * 2;
+    canvas.width = canvas.height;
+  }
 
+  canvasScale = (canvas.height * 6.215)/871;
+
+  c.lineWidth = 1;
 
   /* slider value calculations */
   sliders.resolution = slider1.value / 1; // this seems to be the value for how many points there are on the path. This is for the first slider
@@ -96,54 +105,7 @@ function maintainCanvas() {
   left_style = ("%d", canvas.width + 20 + "px");
   slider_container.style.left = left_style;
 
-  bottom_style1 = ("%d", window.innerHeight/8) + "px";
-  slider1_div.style.bottom = bottom_style1;
-  slider1_div.style.left = "0px";
-  slider1_val_d.style.bottom = ("%d", (window.innerHeight/8) + "px");
-  slider1_val_d.style.left = "140px";
-  slider1_label_d.style.bottom = ("%d", ((window.innerHeight/8) + 20) + "px");
-  slider1_label_d.style.left = "35px";
-
-  bottom_style2 = ("%d", window.innerHeight/8)*2 + "px";
-  slider2_div.style.bottom = bottom_style2;
-  slider2_div.style.left = "0px";
-  slider2_val_d.style.bottom = ("%d", ((window.innerHeight/8)*2) + "px");
-  slider2_val_d.style.left = "140px";
-  slider2_label_d.style.bottom = ("%d", (((window.innerHeight/8)*2) + 20) + "px");
-  slider2_label_d.style.left = "35px";
-
-  bottom_style3 = ("%d", window.innerHeight/8)*3 + "px";
-  slider3_div.style.bottom = bottom_style3;
-  slider3_div.style.left = "0px";
-  slider3_val_d.style.bottom = ("%d", ((window.innerHeight/8)*3) + "px");
-  slider3_val_d.style.left = "140px";
-  slider3_label_d.style.bottom = ("%d", (((window.innerHeight/8)*3) + 20) + "px");
-  slider3_label_d.style.left = "35px";
-
-  bottom_style4 = ("%d", window.innerHeight/8)*4 + "px";
-  slider4_div.style.bottom = bottom_style4;
-  slider4_div.style.left = "0px";
-  slider4_val_d.style.bottom = ("%d", (window.innerHeight/8)*4 + "px");
-  slider4_val_d.style.left = "140px";
-  slider4_label_d.style.bottom = ("%d", (((window.innerHeight/8)*4) + 20) + "px");
-  slider4_label_d.style.left = "35px";
-
-  bottom_style5 = ("%d", window.innerHeight/8)*5 + "px";
-  slider5_div.style.bottom = bottom_style5;
-  slider5_div.style.left = "0px";
-  slider5_val_d.style.bottom = ("%d", (window.innerHeight/8)*5 + "px");
-  slider5_val_d.style.left = "140px";
-  slider5_label_d.style.bottom = ("%d", (((window.innerHeight/8)*5) + 20) + "px");
-  slider5_label_d.style.left = "35px";
-
-  bottom_style6 = ("%d", window.innerHeight/8)*6 + "px";
-  slider6_div.style.bottom = bottom_style6;
-  slider6_div.style.left = "0px";
-  slider6_val_d.style.bottom = ("%d", (window.innerHeight/8)*6 + "px");
-  slider6_val_d.style.left = "140px";
-  slider6_label_d.style.bottom = ("%d", (((window.innerHeight/8)*6) + 20) + "px");
-  slider6_label_d.style.left = "35px";
-
+  c.drawImage(field, 0, 0, canvas.height, canvas.width);
 
   if (showRect) {
     c.beginPath(); // i think this is part of a library of some sort: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/beginPath
