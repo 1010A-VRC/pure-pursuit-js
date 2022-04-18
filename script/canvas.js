@@ -45,7 +45,7 @@ window.focus();
 //////////////////////////////////
 // Canvas Constants and Globals //
 //////////////////////////////////
-let canvasScale = 6.05635892; //ratio between simulated position and canvas position
+let canvasScale = 6.215; //ratio between simulated position and canvas position
 const marginOffset = 9; //correction for canvas choords vs window choords. related to margin
 
 const waypointWidth = 4;
@@ -75,7 +75,7 @@ function maintainCanvas() {
     canvas.width = canvas.height;
   }
 
-  canvasScale = (canvas.height * 6.05635892)/871;
+  canvasScale = (canvas.height * 6.215)/871;
 
   c.lineWidth = 1;
 
