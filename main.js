@@ -2,8 +2,8 @@
 /**
  * Pursuit Constants
  */
-let minVel = 2;
-let maxVel = 100;
+let minVel = 20;
+let maxVel = 40;
 let maxAccel = 1000;
 let maxAccel2 = 100; // max increase in inches/s/s
 let turnK = 20;
@@ -43,14 +43,13 @@ function save(filename) {
 
 
 function main() {
-  /*
   // create a button which downloads a file with the info
   let btn = document.createElement("button");
   btn.onclick = function () {
     save("path.txt", path);
   };
   btn.innerHTML = "output line points and their velocities";
-  document.body.appendChild(btn); */
+  document.body.appendChild(btn);
 
   // set the background color
   document.body.style.backgroundColor = "gray";
@@ -84,7 +83,7 @@ function animate() {
   bots.forEach((bot, i) => {
     bot.setPath(path);
     bot.setLookDistance(sliders.lookahead);
-    bot.setRobotTrack(1/12.8);
+    bot.setRobotTrack(10);
 
     bot.update();
     if(bot.isFinished) {

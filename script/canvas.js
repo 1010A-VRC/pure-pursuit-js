@@ -89,11 +89,11 @@ function maintainCanvas() {
   sliders.lookahead = slider3.value / 1000; // this seems to be the value for the lookahead point
   slider3_val.innerHTML = sliders.lookahead;
 
-  sliders.turnD = slider4.value; // this is the value for turnKD
+  sliders.turnD = slider4.value / 10; // this is the value for turnKD
   slider4_val.innerHTML = sliders.turnD;
   turnK = sliders.turnD;
 
-  sliders.maxDecel = slider5.value; // this is the value for turnKD
+  sliders.maxDecel = slider5.value /100; // this is the value for turnKD
   slider5_val.innerHTML = sliders.maxDecel;
   maxAccel = sliders.maxDecel;
 
