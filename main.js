@@ -17,7 +17,7 @@ let path = [];
 
 
 
-function save(filename) {
+function save_user_data(filename) {
     let out = "";
 
     out += ("lookahead: " + sliders.lookahead + ", acceleration: " + maxAccel2 + "\n")
@@ -41,15 +41,51 @@ function save(filename) {
 }
 
 
+function save_robot_data(filename) {
+
+    let out = "";
+
+    out += ("" + sliders.lookahead + ", " + maxAccel2 + "\n")
+
+    path.forEach(function (value, index) {
+      out += ("" + value.loc[0] + ", " + value.loc[1] + ", " + value.velocity + "\n");
+    });
+
+    const blob = new Blob([out], {type: 'text/csv'});
+    if(window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveBlob(out, filename);
+    }
+    else{
+        const elem = window.document.createElement('a');
+        elem.href = window.URL.createObjectURL(blob);
+        elem.download = filename;
+        document.body.appendChild(elem);
+        elem.click();
+        document.body.removeChild(elem);
+    }
+}
+
+
+
+
+
 
 function main() {
-  // create a button which downloads a file with the info
+  // create a button which downloads a file with the info for the user
   let btn = document.createElement("button");
   btn.onclick = function () {
-    save("path.txt", path);
+    save_user_data("user_path.txt", path);
   };
   btn.innerHTML = "output line points and their velocities";
   document.body.appendChild(btn);
+
+  // create a button which downloads a file with the robot
+  let btn2 = document.createElement("button");
+  btn2.onclick = function () {
+    save_robot_data("robot_path.txt", path);
+  };
+  btn2.innerHTML = "output line points and their velocities for the robot";
+  document.body.appendChild(btn2);
 
   // set the background color
   document.body.style.backgroundColor = "gray";

@@ -6,19 +6,20 @@ canvas {
 
 
 body {
-  display: flex;
-  flex-wrap: wrap;
+  /*display: flex;
+  flex-wrap: wrap; */
   gap: 6px
 }
 
 
 .sliderContainer {
   display: flex;
+  float: right;
   border: 1px solid #44434d;
   flex-direction: column;
-  /*height: 500px; */ /* Full-height: remove this if you want "auto" height */
-  /*width: 300px; */  /* Set the width of the sidebar */
-  flex-wrap: wrap;
+  height: 500px; /* Full-height: remove this if you want "auto" height */
+  width: 300px;  /* Set the width of the sidebar */
+  /*flex-wrap: wrap; */
 
 }
 
