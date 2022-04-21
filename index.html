@@ -15,7 +15,7 @@
 
   <script src="script/jquery.js"></script>
 
-  <div class="sliderContainer" style="" id="sliderContainerDiv">
+  <div class="sliderContainer" id="sliderContainerDiv">
 
     <span id = "slider1_label" class="text-label">tolerance</span>
     <span id="slider1_val" class="text"></span>
@@ -41,6 +41,19 @@
     <span id="slider6_val" class="text"></span>
     <input type="range" min="1" max="10000" value="5000" class="slider" id="slider6">
   </div>
+
+
+  <div class="buttons_container" id="buttonContainer">
+
+    <button class="buttons" id="download_user">User Data</button>
+    <button class="buttons" id="download_data">Robot Data</button>
+    <button class="buttons" id="toggle_mode">Debug</button>
+  </div>
+
+
+  <canvas style="display: none" id="d">
+  </canvas>
+
 
   <a class="tooltip">
     <span id="tooltip-span"></span>

@@ -15,6 +15,10 @@ let points = [];
 let bots = [];
 let path = [];
 
+let c2 = document.getElementById("c");
+let d = document.getElementById("d");
+let slider_contain = document.getElementById("sliderContainerDiv");
+
 
 
 function save_user_data(filename) {
@@ -66,26 +70,93 @@ function save_robot_data(filename) {
 }
 
 
+// download user data button
+var btn = document.getElementById("download_user");
+btn.onclick = function () {
+  save_user_data("user_path.txt", path);
+};
+
+// download robot data
+var btn2 = document.getElementById("download_data");
+btn2.onclick = function () {
+  save_robot_data("robot_path.txt", path);
+};
+
+
+var btn3 = document.getElementById("toggle_mode");
+var debug = false;
+btn3.onclick = function () {
+  if (debug == false) {
+    c2.style.display = "none";
+    slider_contain.style.display = "none";
+    d.style.display = "block";
+    debug = true;
+  } else {
+    d.style.display = "none";
+    c2.style.display = "block";
+    slider_contain.style.display = "flex";
+    debug = false;
+  }
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 function main() {
-  // create a button which downloads a file with the info for the user
-  let btn = document.createElement("button");
-  btn.onclick = function () {
-    save_user_data("user_path.txt", path);
-  };
-  btn.innerHTML = "output line points and their velocities";
-  document.body.appendChild(btn);
 
-  // create a button which downloads a file with the robot
-  let btn2 = document.createElement("button");
-  btn2.onclick = function () {
-    save_robot_data("robot_path.txt", path);
-  };
-  btn2.innerHTML = "output line points and their velocities for the robot";
-  document.body.appendChild(btn2);
+
+
 
   // set the background color
   document.body.style.backgroundColor = "gray";
@@ -119,7 +190,7 @@ function animate() {
   bots.forEach((bot, i) => {
     bot.setPath(path);
     bot.setLookDistance(sliders.lookahead);
-    bot.setRobotTrack(10);
+    bot.setRobotTrack(0.5);
 
     bot.update();
     if(bot.isFinished) {

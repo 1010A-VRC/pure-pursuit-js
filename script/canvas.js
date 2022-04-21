@@ -3,7 +3,9 @@
  * Canvas DOM setup
  */
 const canvas = document.getElementById("c");
+const danvas = document.getElementById("d");
 const c = canvas.getContext("2d");
+const d2 = canvas.getContext("2d");
 
 const field = new Image();
 field.src = './images/field.png';
@@ -69,10 +71,14 @@ let left_style;
 function maintainCanvas() {
   if (window.innerWidth < window.innerHeight) {
     canvas.height = window.innerWidth - marginOffset * 2;
+    danvas.height = window.innerWidth - marginOffset * 2;
     canvas.width = canvas.height;
+    danvas.width = canvas.height;
   } else {
     canvas.height = window.innerHeight - marginOffset * 2;
+    danvas.height = window.innerHeight - marginOffset * 2;
     canvas.width = canvas.height;
+    danvas.width = canvas.height;
   }
 
   canvasScale = (canvas.height * 6.215)/871;

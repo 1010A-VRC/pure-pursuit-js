@@ -1,9 +1,9 @@
 
 canvas {
   border: 1px solid #44434d;
+  float: left;
   /* margin: 10px; */
 }
-
 
 body {
   /*display: flex;
@@ -83,6 +83,16 @@ padding-top: 20px;
   text-align: center;
   vertical-align: top;
   color: #fff;
+}
+
+
+.buttons_container {
+  display: flex;
+  float: right;
+  border: 1px solid #44434d;
+  flex-direction: column;
+  height: 500px; /* Full-height: remove this if you want "auto" height */
+  width: 300px;  /* Set the width of the sidebar */
 }
 
 
