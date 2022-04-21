@@ -5,7 +5,7 @@
 const canvas = document.getElementById("c");
 const danvas = document.getElementById("d");
 const c = canvas.getContext("2d");
-const d2 = canvas.getContext("2d");
+const d2 = danvas.getContext("2d");
 
 const field = new Image();
 field.src = './images/field.png';
@@ -112,6 +112,7 @@ function maintainCanvas() {
   slider_container.style.left = left_style;
 
   c.drawImage(field, 0, 0, canvas.height, canvas.width);
+  d2.drawImage(field, 0, 0, danvas.height, danvas.width);
 
   if (showRect) {
     c.beginPath(); // i think this is part of a library of some sort: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/beginPath
