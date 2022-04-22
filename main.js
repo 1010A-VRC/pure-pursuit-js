@@ -187,6 +187,8 @@ let dy = -2;
 let x = danvas.width/2;
 let y = -danvas.height/2;
 
+let debug_index = 0;
+
 
 
 function animate() {
@@ -203,13 +205,18 @@ function animate() {
    */
 
   // drawing code
-  d2.beginPath();
-  d2.arc(x, y, 10, 0, Math.PI*2);
-  d2.fillStyle = "#0095DD";
-  d2.fill();
-  d2.closePath();
-  x += dx;
-  y += dy;
+  if (typeof debug_path['path_points'] !== 'undefined') {
+    d2.beginPath();
+    d2.arc(debug_path['timestamp'][debug_index]['robotx']*canvasScale, -(debug_path['timestamp'][debug_index]['roboty']*canvasScale), 10, 0, Math.PI*2);
+    d2.fillStyle = "#0095DD";
+    d2.fill();
+    d2.closePath();
+    if (debug_index < debug_path['timestamp'].length-1) {
+      debug_index++;
+    }
+
+  }
+
 
   path = computeCurvatures(path);
   path = computeVelocity(path, maxVel, maxAccel, turnK);
