@@ -19,7 +19,7 @@ let c2 = document.getElementById("c");
 let d = document.getElementById("d");
 let slider_contain = document.getElementById("sliderContainerDiv");
 
-const debug_path = new Object();
+//const debug_path = new Object();
 
 
 
@@ -153,55 +153,7 @@ btn3.onclick = function () {
 
 
 
-document.querySelector("#read-button").addEventListener('click', function() {
-	if(document.querySelector("#file-input").files.length == 0) {
-		alert('Error : No file selected');
-		return;
-	}
 
-	// file selected by user
-	let file = document.querySelector("#file-input").files[0];
-
-  // new FileReader object
-	let reader = new FileReader();
-
-	// event fired when file reading finished
-	reader.addEventListener('load', function(e) {
-	   // contents of the file
-	    let text = e.target.result;
-      var inputArray = text.split('\n');
-
-
-
-      // save all the points on the path
-      for (var i = 0; i < inputArray.length-1; i++) {
-        var inputArrayFiltered = inputArray[i].split(", ");
-        if (inputArrayFiltered.length == 1) {
-          var firstInputArrayFiltered = inputArray[0].split(", ");
-          debug_path['lookahead'] = firstInputArrayFiltered[0].slice(0, firstInputArrayFiltered[0].length - 1);
-          debug_path['path_points'] = [];
-          debug_path['timestamp'] = [];
-        } else if (inputArrayFiltered.length == 3) {
-          debug_path['path_points'][i-1] = {};
-          debug_path['path_points'][i-1]['x'] = inputArrayFiltered[0];
-          debug_path['path_points'][i-1]['y'] = inputArrayFiltered[1];
-          debug_path['path_points'][i-1]['vel'] = inputArrayFiltered[2].slice(0, inputArrayFiltered[2].length - 1);
-        } else {
-          // format: timestamp, robotx, roboty, lookaheadx, lookaheady, curvature
-          debug_path['timestamp'][debug_path['timestamp'].length] = {};
-          debug_path['timestamp'][debug_path['timestamp'].length-1]['timestamp'] = inputArrayFiltered[0];
-          debug_path['timestamp'][debug_path['timestamp'].length-1]['robotx'] = inputArrayFiltered[1];
-          debug_path['timestamp'][debug_path['timestamp'].length-1]['roboty'] = inputArrayFiltered[2];
-          debug_path['timestamp'][debug_path['timestamp'].length-1]['lookaheadx'] = inputArrayFiltered[3];
-          debug_path['timestamp'][debug_path['timestamp'].length-1]['lookaheady'] = inputArrayFiltered[4];
-          debug_path['timestamp'][debug_path['timestamp'].length-1]['curvature'] = inputArrayFiltered[5].slice(0, inputArrayFiltered[5].length - 1);
-        }
-      }
-	});
-
-	// read file as text file
-	reader.readAsText(file);
-});
 
 
 
@@ -231,6 +183,7 @@ function main() {
 function animate() {
 
   maintainCanvas(); // deleting this seems to stop the program from deleting stuff it was supposed to delete
+
 
   let ipoints = calculateAngles(points);
   let test = new QuinticPathPlanner(ipoints, sliders.resolution, sliders.scalar);

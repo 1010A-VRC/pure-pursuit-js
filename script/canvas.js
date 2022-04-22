@@ -1,3 +1,5 @@
+const debug_path = new Object();
+
 
 /**
  * Canvas DOM setup
@@ -65,6 +67,80 @@ let bottom_style8;
 let left_style;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.querySelector("#read-button").addEventListener('click', function() {
+	if(document.querySelector("#file-input").files.length == 0) {
+		alert('Error : No file selected');
+		return;
+	}
+
+	// file selected by user
+	let file = document.querySelector("#file-input").files[0];
+
+  // new FileReader object
+	let reader = new FileReader();
+
+	// event fired when file reading finished
+	reader.addEventListener('load', function(e) {
+	   // contents of the file
+	    let text = e.target.result;
+      var inputArray = text.split('\n');
+
+
+
+      // save all the points on the path
+      for (var i = 0; i < inputArray.length-1; i++) {
+        var inputArrayFiltered = inputArray[i].split(", ");
+        if (inputArrayFiltered.length == 1) {
+          var firstInputArrayFiltered = inputArray[0].split(", ");
+          debug_path['lookahead'] = firstInputArrayFiltered[0].slice(0, firstInputArrayFiltered[0].length - 1);
+          debug_path['path_points'] = [];
+          debug_path['timestamp'] = [];
+        } else if (inputArrayFiltered.length == 3) {
+          debug_path['path_points'][i-1] = {};
+          debug_path['path_points'][i-1]['x'] = inputArrayFiltered[0];
+          debug_path['path_points'][i-1]['y'] = inputArrayFiltered[1];
+          debug_path['path_points'][i-1]['vel'] = inputArrayFiltered[2].slice(0, inputArrayFiltered[2].length - 1);
+        } else {
+          // format: timestamp, robotx, roboty, lookaheadx, lookaheady, curvature
+          debug_path['timestamp'][debug_path['timestamp'].length] = {};
+          debug_path['timestamp'][debug_path['timestamp'].length-1]['timestamp'] = inputArrayFiltered[0];
+          debug_path['timestamp'][debug_path['timestamp'].length-1]['robotx'] = inputArrayFiltered[1];
+          debug_path['timestamp'][debug_path['timestamp'].length-1]['roboty'] = inputArrayFiltered[2];
+          debug_path['timestamp'][debug_path['timestamp'].length-1]['lookaheadx'] = inputArrayFiltered[3];
+          debug_path['timestamp'][debug_path['timestamp'].length-1]['lookaheady'] = inputArrayFiltered[4];
+          debug_path['timestamp'][debug_path['timestamp'].length-1]['curvature'] = inputArrayFiltered[5].slice(0, inputArrayFiltered[5].length - 1);
+        }
+      }
+	});
+
+	// read file as text file
+	reader.readAsText(file);
+});
+
+
+
+
+
+
+
+
+
+
+
+
 ///////////////////////
 // Utility Functions //
 ///////////////////////
@@ -121,6 +197,49 @@ function maintainCanvas() {
     c.rect(rectangle[0].x, rectangle[0].y, rectangle[1].x - rectangle[0].x, rectangle[1].y - rectangle[0].y);
     c.stroke();
   }
+
+
+
+
+
+  // danvas stuff over here
+  // set the zero point to the bottom left of the canvas
+  d2.translate(0, danvas.height);
+
+  //d2.moveTo(0, 0);
+  //d2.lineTo(200, -500);
+  //d2.stroke();
+
+  // draw the path
+  if (typeof debug_path['path_points'] !== 'undefined') {
+    d2.fillStyle = "red";
+    d2.beginPath();
+    d2.arc(debug_path['path_points'][0]['x']*canvasScale, -(debug_path['path_points'][0]['y']*canvasScale), 5, 0, 6.5);
+    d2.closePath();
+    d2.fill();
+    d2.stroke();
+
+
+    for (var i = 1; i < debug_path['path_points'].length; i++) {
+      d2.beginPath();
+      d2.moveTo(debug_path['path_points'][i-1]['x']*canvasScale, -(debug_path['path_points'][i-1]['y']*canvasScale)); // debug_path['path_points'][i-1]['x']*canvasScale, danvas.height - (debug_path['path_points'][i-1]['y']*canvasScale)
+      d2.lineTo(debug_path['path_points'][i]['x']*canvasScale, - (debug_path['path_points'][i]['y']*canvasScale)); //
+      d2.stroke();
+      d2.closePath();
+      d2.beginPath();
+      d2.arc(debug_path['path_points'][i]['x']*canvasScale, -(debug_path['path_points'][i]['y']*canvasScale), 5, 0, 6.5);
+      d2.closePath();
+      d2.fill();
+      d2.stroke();
+
+      //d2.stroke();
+    }
+  }
+
+
+
+
+
 }
 
 /**
