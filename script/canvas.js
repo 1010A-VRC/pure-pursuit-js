@@ -6,8 +6,10 @@ const debug_path = new Object();
  */
 const canvas = document.getElementById("c");
 const danvas = document.getElementById("d");
+const danvas2 = document.getElementById("d");
 const c = canvas.getContext("2d");
 const d2 = danvas.getContext("2d");
+const d3 = danvas2.getContext("2d");
 
 const field = new Image();
 field.src = './images/field.png';
@@ -78,8 +80,6 @@ let left_style;
 
 
 
-
-
 document.querySelector("#read-button").addEventListener('click', function() {
 	if(document.querySelector("#file-input").files.length == 0) {
 		alert('Error : No file selected');
@@ -97,8 +97,6 @@ document.querySelector("#read-button").addEventListener('click', function() {
 	   // contents of the file
 	    let text = e.target.result;
       var inputArray = text.split('\n');
-
-
 
       // save all the points on the path
       for (var i = 0; i < inputArray.length-1; i++) {
@@ -124,11 +122,16 @@ document.querySelector("#read-button").addEventListener('click', function() {
           debug_path['timestamp'][debug_path['timestamp'].length-1]['curvature'] = inputArrayFiltered[5].slice(0, inputArrayFiltered[5].length - 1);
         }
       }
+
 	});
 
 	// read file as text file
 	reader.readAsText(file);
 });
+
+
+
+
 
 
 
@@ -211,6 +214,7 @@ function maintainCanvas() {
   //d2.stroke();
 
   // draw the path
+
   if (typeof debug_path['path_points'] !== 'undefined') {
     d2.fillStyle = "red";
     d2.beginPath();
@@ -223,7 +227,7 @@ function maintainCanvas() {
     for (var i = 1; i < debug_path['path_points'].length; i++) {
       d2.beginPath();
       d2.moveTo(debug_path['path_points'][i-1]['x']*canvasScale, -(debug_path['path_points'][i-1]['y']*canvasScale)); // debug_path['path_points'][i-1]['x']*canvasScale, danvas.height - (debug_path['path_points'][i-1]['y']*canvasScale)
-      d2.lineTo(debug_path['path_points'][i]['x']*canvasScale, - (debug_path['path_points'][i]['y']*canvasScale)); //
+      d2.lineTo(debug_path['path_points'][i]['x']*canvasScale, -(debug_path['path_points'][i]['y']*canvasScale)); //
       d2.stroke();
       d2.closePath();
       d2.beginPath();
@@ -232,7 +236,6 @@ function maintainCanvas() {
       d2.fill();
       d2.stroke();
 
-      //d2.stroke();
     }
   }
 

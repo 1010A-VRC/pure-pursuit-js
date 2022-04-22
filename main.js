@@ -180,6 +180,15 @@ function main() {
 }
 
 
+
+
+let dx = 2;
+let dy = -2;
+let x = danvas.width/2;
+let y = -danvas.height/2;
+
+
+
 function animate() {
 
   maintainCanvas(); // deleting this seems to stop the program from deleting stuff it was supposed to delete
@@ -192,6 +201,15 @@ function animate() {
   /**
    * Pure Pursuit Algorithm
    */
+
+  // drawing code
+  d2.beginPath();
+  d2.arc(x, y, 10, 0, Math.PI*2);
+  d2.fillStyle = "#0095DD";
+  d2.fill();
+  d2.closePath();
+  x += dx;
+  y += dy;
 
   path = computeCurvatures(path);
   path = computeVelocity(path, maxVel, maxAccel, turnK);
