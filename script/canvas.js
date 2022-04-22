@@ -112,14 +112,15 @@ document.querySelector("#read-button").addEventListener('click', function() {
           debug_path['path_points'][i-1]['y'] = inputArrayFiltered[1];
           debug_path['path_points'][i-1]['vel'] = inputArrayFiltered[2].slice(0, inputArrayFiltered[2].length - 1);
         } else {
-          // format: timestamp, robotx, roboty, lookaheadx, lookaheady, curvature
+          // format: timestamp, robotx, roboty, roboth lookaheadx, lookaheady, curvature
           debug_path['timestamp'][debug_path['timestamp'].length] = {};
           debug_path['timestamp'][debug_path['timestamp'].length-1]['timestamp'] = inputArrayFiltered[0];
           debug_path['timestamp'][debug_path['timestamp'].length-1]['robotx'] = inputArrayFiltered[1];
           debug_path['timestamp'][debug_path['timestamp'].length-1]['roboty'] = inputArrayFiltered[2];
-          debug_path['timestamp'][debug_path['timestamp'].length-1]['lookaheadx'] = inputArrayFiltered[3];
-          debug_path['timestamp'][debug_path['timestamp'].length-1]['lookaheady'] = inputArrayFiltered[4];
-          debug_path['timestamp'][debug_path['timestamp'].length-1]['curvature'] = inputArrayFiltered[5].slice(0, inputArrayFiltered[5].length - 1);
+					debug_path['timestamp'][debug_path['timestamp'].length-1]['roboth'] = inputArrayFiltered[3]
+          debug_path['timestamp'][debug_path['timestamp'].length-1]['lookaheadx'] = inputArrayFiltered[4];
+          debug_path['timestamp'][debug_path['timestamp'].length-1]['lookaheady'] = inputArrayFiltered[5];
+          debug_path['timestamp'][debug_path['timestamp'].length-1]['curvature'] = inputArrayFiltered[6].slice(0, inputArrayFiltered[6].length - 1);
         }
       }
 
