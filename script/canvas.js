@@ -219,7 +219,7 @@ function maintainCanvas() {
   if (typeof debug_path['path_points'] !== 'undefined') {
     d2.fillStyle = "red";
     d2.beginPath();
-    d2.arc(debug_path['path_points'][0]['x']*canvasScale, -(debug_path['path_points'][0]['y']*canvasScale), 5, 0, 6.5);
+    d2.arc(debug_path['path_points'][0]['x']*canvasScale, -(debug_path['path_points'][0]['y']*canvasScale), 0.5*canvasScale, 0, Math.PI*2);
     d2.closePath();
     d2.fill();
     d2.stroke();
@@ -232,7 +232,7 @@ function maintainCanvas() {
       d2.stroke();
       d2.closePath();
       d2.beginPath();
-      d2.arc(debug_path['path_points'][i]['x']*canvasScale, -(debug_path['path_points'][i]['y']*canvasScale), 5, 0, 6.5);
+      d2.arc(debug_path['path_points'][i]['x']*canvasScale, -(debug_path['path_points'][i]['y']*canvasScale), 0.5*canvasScale, 0, Math.PI*2);
       d2.closePath();
       d2.fill();
       d2.stroke();

@@ -204,31 +204,55 @@ function animate() {
    * Pure Pursuit Algorithm
    */
 
-   // M_PI/2 - heading = polar theta
 
   // drawing code
   if (typeof debug_path['path_points'] !== 'undefined') {
     // draw the robot
     d2.beginPath();
-    d2.arc(debug_path['timestamp'][debug_index]['robotx']*canvasScale, -(debug_path['timestamp'][debug_index]['roboty']*canvasScale), 2.5*canvasScale, 0, Math.PI*2);
+    d2.arc(debug_path['timestamp'][debug_index]['robotx']*canvasScale, -(debug_path['timestamp'][debug_index]['roboty']*canvasScale), (2.5/2)*canvasScale, 0, Math.PI*2);
     d2.fillStyle = "#0095DD";
     d2.fill();
     d2.closePath();
-    // draw the robot line
-    var polar_theta = debug_path['timestamp'][debug_index]['roboth'] - Math.PI/2;
-    console.log(polar_theta);
-    var polar_radius = 30*canvasScale;
+    // draw the lookahead circle
     d2.beginPath();
-    d2.moveTo(debug_path['timestamp'][debug_index]['robotx']*canvasScale, -(debug_path['timestamp'][debug_index]['roboty']*canvasScale));
-    d2.lineTo(debug_path['timestamp'][debug_index]['robotx']*canvasScale + polar_radius*Math.cos(polar_theta), -(debug_path['timestamp'][debug_index]['roboty']*canvasScale) + polar_radius*Math.sin(polar_theta));
-    //console.log(debug_path['timestamp'][debug_index]['robotx']*canvasScale, -(debug_path['timestamp'][debug_index]['roboty']*canvasScale));
+    d2.strokeStyle = "blue";
+    d2.arc(debug_path['timestamp'][debug_index]['robotx']*canvasScale, -(debug_path['timestamp'][debug_index]['roboty']*canvasScale), (debug_path['lookahead']/2)*canvasScale, 0, Math.PI*2);
     d2.stroke();
     d2.closePath();
+    // draw the robot line
+    var polar_theta = debug_path['timestamp'][debug_index]['roboth'] - Math.PI/2;
+    var polar_radius = debug_path['lookahead']*canvasScale;
+    d2.beginPath();
+    d2.strokeStyle = "red";
+    d2.moveTo(debug_path['timestamp'][debug_index]['robotx']*canvasScale, -(debug_path['timestamp'][debug_index]['roboty']*canvasScale));
+    d2.lineTo(debug_path['timestamp'][debug_index]['robotx']*canvasScale + polar_radius*Math.cos(polar_theta), -(debug_path['timestamp'][debug_index]['roboty']*canvasScale) + polar_radius*Math.sin(polar_theta));
+    d2.stroke();
+    d2.closePath();
+    // draw the lookahead point
+    d2.beginPath();
+    d2.fillStyle = "pink";
+    d2.arc(debug_path['timestamp'][debug_index]['lookaheadx']*canvasScale, -debug_path['timestamp'][debug_index]['lookaheady']*canvasScale, 1*canvasScale, 0, Math.PI*2);
+    d2.fill();
+    d2.closePath();
+    // draw the curvature arc
+    d2.beginPath();
+    d2.strokeStyle = "gray";
+    // calculate the radius of the circle
+    var circle_radius = 1/debug_path['timestamp'][debug_index]['curvature'];
+    // if curvature is positive
+    if (debug_path['timestamp'][debug_index]['curvature'] > 0) {
+      d2.arc(debug_path['timestamp'][debug_index]['robotx']*canvasScale + (circle_radius*canvasScale)*Math.cos(polar_theta+Math.PI/2), -(debug_path['timestamp'][debug_index]['roboty']*canvasScale) + (circle_radius*canvasScale)*Math.sin(polar_theta+Math.PI/2), Math.abs(circle_radius*canvasScale), 0, Math.PI*2);
+    } else {
+      d2.arc(debug_path['timestamp'][debug_index]['robotx']*canvasScale - (circle_radius*canvasScale)*Math.cos(polar_theta-Math.PI/2), -(debug_path['timestamp'][debug_index]['roboty']*canvasScale) - (circle_radius*canvasScale)*Math.sin(polar_theta-Math.PI/2), Math.abs(circle_radius*canvasScale), 0, Math.PI*2);
+    }
+    d2.stroke();
+    d2.closePath();
+
+
 
     if (debug_index < debug_path['timestamp'].length-1) {
       debug_index++;
     }
-
   }
 
 
