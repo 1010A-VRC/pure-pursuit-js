@@ -220,7 +220,7 @@ function animate() {
     d2.stroke();
     d2.closePath();
     // draw the robot line
-    var polar_theta = debug_path['timestamp'][debug_index]['roboth'] - Math.PI/2;
+    var polar_theta = debug_path['timestamp'][debug_index]['roboth'];
     var polar_radius = debug_path['lookahead']*canvasScale;
     d2.beginPath();
     d2.strokeStyle = "red";
