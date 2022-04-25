@@ -23,6 +23,16 @@ body {
 
 }
 
+
+.velocity {
+  display: flex;
+  position: absolute;
+  float: right;
+}
+
+
+
+
 /*
 border: 1px solid #44434d;
 height: 100%;  Full-height: remove this if you want "auto" height
@@ -91,7 +101,7 @@ padding-top: 20px;
   float: right;
   border: 1px solid #44434d;
   flex-direction: column;
-  height: 500px; /* Full-height: remove this if you want "auto" height */
+  height: 75px; /* Full-height: remove this if you want "auto" height */
   width: 300px;  /* Set the width of the sidebar */
 }
 

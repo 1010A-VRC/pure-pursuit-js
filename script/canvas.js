@@ -9,13 +9,12 @@ const danvas = document.getElementById("d");
 const danvas2 = document.getElementById("d");
 const leftVelC = document.getElementById("l");
 const rightVelC = document.getElementById("r");
+const buttonContainer = document.getElementById("buttonContainer");
 const c = canvas.getContext("2d");
 const d2 = danvas.getContext("2d");
 const d3 = danvas2.getContext("2d");
 const lC = leftVelC.getContext("2d");
 const rC = rightVelC.getContext("2d");
-
-
 
 const field = new Image();
 field.src = './images/field.png';
@@ -118,7 +117,7 @@ document.querySelector("#read-button").addEventListener('click', function() {
           debug_path['path_points'][i-1]['y'] = inputArrayFiltered[1];
           debug_path['path_points'][i-1]['vel'] = inputArrayFiltered[2].slice(0, inputArrayFiltered[2].length - 1);
         } else {
-          // format: timestamp, robotx, roboty, roboth lookaheadx, lookaheady, curvature
+          // format: timestamp, robotx, roboty, roboth lookaheadx, lookaheady, curvature, leftvel, rightvel
           debug_path['timestamp'][debug_path['timestamp'].length] = {};
           debug_path['timestamp'][debug_path['timestamp'].length-1]['timestamp'] = inputArrayFiltered[0];
           debug_path['timestamp'][debug_path['timestamp'].length-1]['robotx'] = inputArrayFiltered[1];
@@ -126,7 +125,9 @@ document.querySelector("#read-button").addEventListener('click', function() {
 					debug_path['timestamp'][debug_path['timestamp'].length-1]['roboth'] = inputArrayFiltered[3]
           debug_path['timestamp'][debug_path['timestamp'].length-1]['lookaheadx'] = inputArrayFiltered[4];
           debug_path['timestamp'][debug_path['timestamp'].length-1]['lookaheady'] = inputArrayFiltered[5];
-          debug_path['timestamp'][debug_path['timestamp'].length-1]['curvature'] = inputArrayFiltered[6].slice(0, inputArrayFiltered[6].length - 1);
+          debug_path['timestamp'][debug_path['timestamp'].length-1]['curvature'] = inputArrayFiltered[6];
+					debug_path['timestamp'][debug_path['timestamp'].length-1]['leftvel'] = inputArrayFiltered[7];
+					debug_path['timestamp'][debug_path['timestamp'].length-1]['rightvel'] = inputArrayFiltered[8].slice(0, inputArrayFiltered[6].length - 1);
         }
       }
 
@@ -171,14 +172,20 @@ function maintainCanvas() {
 		// maintain height
     canvas.height = window.innerHeight - marginOffset * 2;
     danvas.height = window.innerHeight - marginOffset * 2;
-		leftVelC.height = window.innerWidth/4;
-		rightVelC.height = window.innerWidth/4;
+		leftVelC.height = window.innerHeight/2.5;
+		rightVelC.height = window.innerHeight/2.5;
 		// maintain width
     canvas.width = canvas.height;
     danvas.width = canvas.height;
-		leftVelC.width = leftVelC.height*1.3;
-		rightVelC.width = rightVelC.height*1.3;
+		leftVelC.width = window.innerWidth/3;
+		rightVelC.width = window.innerWidth/3;
   }
+	//leftVelC.style.top = (canvas.height*1.2).toString().concat("px");
+	rightVelC.style.top = (canvas.height/7).toString().concat("px");
+	rightVelC.style.right = (10).toString().concat("px");
+	leftVelC.style.top = (canvas.height/7 + rightVelC.height + 20).toString().concat("px")
+	leftVelC.style.right = (10).toString().concat("px");
+//	rightVelC.style.position =
 
   canvasScale = (canvas.height * 6.215)/871;
 

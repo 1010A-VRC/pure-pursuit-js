@@ -252,6 +252,8 @@ function animate() {
     d2.stroke();
     d2.closePath();
 
+    // draw the graphs
+
 
 
     if (debug_index < debug_path['timestamp'].length-1) {
