@@ -99,12 +99,16 @@ btn3.onclick = function () {
   if (debug == false) {
     c2.style.display = "none";
     slider_contain.style.display = "none";
+    leftVelC.style.display = "block";
+    rightVelC.style.display = "block";
     d.style.display = "block";
     debug = true;
   } else {
     d.style.display = "none";
     c2.style.display = "block";
     slider_contain.style.display = "flex";
+    leftVelC.style.display = "none";
+    rightVelC.style.display = "none";
     debug = false;
   }
 

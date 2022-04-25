@@ -7,9 +7,15 @@ const debug_path = new Object();
 const canvas = document.getElementById("c");
 const danvas = document.getElementById("d");
 const danvas2 = document.getElementById("d");
+const leftVelC = document.getElementById("l");
+const rightVelC = document.getElementById("r");
 const c = canvas.getContext("2d");
 const d2 = danvas.getContext("2d");
 const d3 = danvas2.getContext("2d");
+const lC = leftVelC.getContext("2d");
+const rC = rightVelC.getContext("2d");
+
+
 
 const field = new Image();
 field.src = './images/field.png';
@@ -150,15 +156,28 @@ document.querySelector("#read-button").addEventListener('click', function() {
 ///////////////////////
 function maintainCanvas() {
   if (window.innerWidth < window.innerHeight) {
+		// maintain height
     canvas.height = window.innerWidth - marginOffset * 2;
     danvas.height = window.innerWidth - marginOffset * 2;
+		leftVelC.height = window.innerWidth/4;
+		rightVelC.height = window.innerWidth/4;
+		// maintain width
     canvas.width = canvas.height;
     danvas.width = canvas.height;
+		leftVelC.width = leftVelC.height*1.3;
+		rightVelC.width = rightVelC.height*1.3;
+
   } else {
+		// maintain height
     canvas.height = window.innerHeight - marginOffset * 2;
     danvas.height = window.innerHeight - marginOffset * 2;
+		leftVelC.height = window.innerWidth/4;
+		rightVelC.height = window.innerWidth/4;
+		// maintain width
     canvas.width = canvas.height;
     danvas.width = canvas.height;
+		leftVelC.width = leftVelC.height*1.3;
+		rightVelC.width = rightVelC.height*1.3;
   }
 
   canvasScale = (canvas.height * 6.215)/871;
