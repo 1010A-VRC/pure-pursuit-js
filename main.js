@@ -106,6 +106,12 @@ btn3.onclick = function () {
     rightVelC.style.display = "block";
     rightVelCL.style.display = "block";
     d.style.display = "block";
+    kv_label.style.display = "inline";
+    kv_val.style.display = "inline";
+    ka_label.style.display = "inline";
+    ka_val.style.display = "inline";
+    kp_label.style.display = "inline";
+    kp_val.style.display = "inline";
     debug = true;
   } else {
     d.style.display = "none";
@@ -115,6 +121,12 @@ btn3.onclick = function () {
     leftVelCL.style.display = "none";
     rightVelC.style.display = "none";
     rightVelCL.style.display = "none";
+    kv_label.style.display = "none";
+    kv_val.style.display = "none";
+    ka_label.style.display = "none";
+    ka_val.style.display = "none";
+    kp_label.style.display = "none";
+    kp_val.style.display = "none";
     debug = false;
   }
 

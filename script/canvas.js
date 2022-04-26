@@ -51,6 +51,13 @@ const slider7_label_d = document.getElementById('slider7_label');
 const slider8_label_d = document.getElementById('slider8_label');
 const slider9_label_d = document.getElementById('slider9_label');
 
+const kv_label = document.getElementById('kv_label');
+const kv_val = document.getElementById('kv_val');
+const ka_label = document.getElementById('ka_label');
+const ka_val = document.getElementById('ka_val');
+const kp_label = document.getElementById('kp_label');
+const kp_val = document.getElementById('kp_val');
+
 var tooltip = document.getElementById('tooltip-span');
 var slider_container = document.getElementById('sliderContainerDiv');
 
@@ -126,6 +133,9 @@ document.querySelector("#read-button").addEventListener('click', function() {
 					debug_path['kp'] = firstInputArrayFiltered[4]/*.slice(0, firstInputArrayFiltered[4].length - 1)*/;
           debug_path['path_points'] = [];
           debug_path['timestamp'] = [];
+					kv_val.innerHTML = debug_path['kv'];
+					ka_val.innerHTML = debug_path['ka'];
+					kp_val.innerHTML = debug_path['kp'];
         } else if (inputArrayFiltered.length == 3) {
           debug_path['path_points'][i-1] = {};
           debug_path['path_points'][i-1]['x'] = inputArrayFiltered[0];
