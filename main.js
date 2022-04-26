@@ -253,6 +253,14 @@ function animate() {
     d2.closePath();
 
     // draw the graphs
+    if (debug_index > 0) { // debug index is greater than zero
+      lC.beginPath();
+      // move to the last velocity
+      lC.moveTo(debug_path['timestamp'][debug_index - 1]['leftvel'], (debug_index-1);  // scale outputs in future
+      lC.lineTo(debug_path['timestamp'][debug_index]['leftvel'], (debug_index)); // scale outputs in future
+      lC.stroke();
+      lC.closePath();
+    }
 
 
 
