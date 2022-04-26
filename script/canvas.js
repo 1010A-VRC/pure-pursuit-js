@@ -284,31 +284,32 @@ function maintainCanvas() {
 			rC.translate(0, leftVelC.height);
 			for (var debug_index = 1; debug_index < debug_path['timestamp'].length; debug_index++) {
 				var lCHeightScale = leftVelC.height/debug_path['maxspeed'];
+				var lCWidthScale = leftVelC.width/debug_path['timestamp'].length;
 				// draw the target left velocity
 				lC.beginPath();
-				lC.moveTo(debug_index-1, -debug_path['timestamp'][debug_index-1]['leftvel']*lCHeightScale);
-				lC.lineTo(debug_index, -debug_path['timestamp'][debug_index]['leftvel']*lCHeightScale);
+				lC.moveTo((debug_index-1)*lCWidthScale, -debug_path['timestamp'][debug_index-1]['leftvel']*lCHeightScale);
+				lC.lineTo(debug_index*lCWidthScale, -debug_path['timestamp'][debug_index]['leftvel']*lCHeightScale);
 				lC.strokeStyle = "blue";
 				lC.stroke();
 				lC.closePath();
 				// draw the actual left velocity
 				lC.beginPath();
-				lC.moveTo(debug_index-1, -debug_path['timestamp'][debug_index-1]['leftactualvel']*lCHeightScale);
-				lC.lineTo(debug_index, -debug_path['timestamp'][debug_index]['leftactualvel']*lCHeightScale);
+				lC.moveTo((debug_index-1)*lCWidthScale, -debug_path['timestamp'][debug_index-1]['leftactualvel']*lCHeightScale);
+				lC.lineTo(debug_index*lCWidthScale, -debug_path['timestamp'][debug_index]['leftactualvel']*lCHeightScale);
 				lC.strokeStyle = "yellow";
 				lC.stroke();
 				lC.closePath();
 				// draw the target right velocity
 				rC.beginPath();
-				rC.moveTo(debug_index-1, -debug_path['timestamp'][debug_index-1]['rightvel']*lCHeightScale);
-				rC.lineTo(debug_index, -debug_path['timestamp'][debug_index]['rightvel']*lCHeightScale);
+				rC.moveTo((debug_index-1)*lCWidthScale, -debug_path['timestamp'][debug_index-1]['rightvel']*lCHeightScale);
+				rC.lineTo(debug_index*lCWidthScale, -debug_path['timestamp'][debug_index]['rightvel']*lCHeightScale);
 				rC.strokeStyle = "blue";
 				rC.stroke();
 				rC.closePath();
 				// draw the actual right velocity
 				rC.beginPath();
-				rC.moveTo(debug_index-1, -debug_path['timestamp'][debug_index-1]['rightactualvel']*lCHeightScale);
-				rC.lineTo(debug_index, -debug_path['timestamp'][debug_index]['rightactualvel']*lCHeightScale);
+				rC.moveTo((debug_index-1)*lCWidthScale, -debug_path['timestamp'][debug_index-1]['rightactualvel']*lCHeightScale);
+				rC.lineTo(debug_index*lCWidthScale, -debug_path['timestamp'][debug_index]['rightactualvel']*lCHeightScale);
 				rC.strokeStyle = "yellow";
 				rC.stroke();
 				rC.closePath();
