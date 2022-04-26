@@ -102,7 +102,9 @@ btn3.onclick = function () {
     c2.style.display = "none";
     slider_contain.style.display = "none";
     leftVelC.style.display = "block";
+    leftVelCL.style.display = "block";
     rightVelC.style.display = "block";
+    rightVelCL.style.display = "block";
     d.style.display = "block";
     debug = true;
   } else {
@@ -110,7 +112,9 @@ btn3.onclick = function () {
     c2.style.display = "block";
     slider_contain.style.display = "flex";
     leftVelC.style.display = "none";
+    leftVelCL.style.display = "none";
     rightVelC.style.display = "none";
+    rightVelCL.style.display = "none";
     debug = false;
   }
 

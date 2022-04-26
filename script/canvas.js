@@ -9,6 +9,8 @@ const danvas = document.getElementById("d");
 const danvas2 = document.getElementById("d");
 const leftVelC = document.getElementById("l");
 const rightVelC = document.getElementById("r");
+const leftVelCL = document.getElementById("leftVelGraphLabel");
+const rightVelCL = document.getElementById("rightVelGraphLabel");
 const buttonContainer = document.getElementById("buttonContainer");
 const c = canvas.getContext("2d");
 const d2 = danvas.getContext("2d");
@@ -210,8 +212,12 @@ function maintainCanvas() {
 	if (window.innerWidth != prev_window_innerwidth || window.innerHeight != prev_window_innerheight) {
 		rightVelC.style.top = (canvas.height/7).toString().concat("px");
 		rightVelC.style.right = (10).toString().concat("px");
-		leftVelC.style.top = (canvas.height/7 + rightVelC.height + 20).toString().concat("px")
+		rightVelCL.style.top = (canvas.height/7).toString().concat("px");
+		rightVelCL.style.right = (rightVelC.width + 20).toString().concat("px");
+		leftVelC.style.top = (canvas.height/7 + rightVelC.height + 20).toString().concat("px");
 		leftVelC.style.right = (10).toString().concat("px");
+		leftVelCL.style.top = (canvas.height/7 + rightVelC.height + 20).toString().concat("px");
+		leftVelCL.style.right = (leftVelC.width + 20).toString().concat("px");
 	}
 //	rightVelC.style.position =
 
