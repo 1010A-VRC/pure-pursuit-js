@@ -28,7 +28,8 @@ let slider_contain = document.getElementById("sliderContainerDiv");
 function save_user_data(filename) {
     let out = "";
 
-    out += ("lookahead: " + sliders.lookahead + ", acceleration: " + maxAccel2 + "\n")
+    // format: lookahead, maxAccel, kV, kA, kP
+    out += ("lookahead: " + sliders.lookahead + ", acceleration: " + maxAccel2 + ", kV: " + sliders.kV + ", kA: " + sliders.kA + ", kP: " + sliders.kP + "\n");
 
     path.forEach(function (value, index) {
       out += (index + ": (" + value.loc[0] + ", " + value.loc[1] + ", " + value.velocity + ")\n");
@@ -53,7 +54,8 @@ function save_robot_data(filename) {
 
     let out = "";
 
-    out += ("" + sliders.lookahead + ", " + maxAccel2 + "\n")
+    // format: lookahead, maxAccel, kV, kA, kP
+    out += ("" + sliders.lookahead + ", " + maxAccel2 + ", " + sliders.kV + ", " + sliders.kA + ", " + sliders.kP + "\n");
 
     path.forEach(function (value, index) {
       out += ("" + value.loc[0] + ", " + value.loc[1] + ", " + value.velocity + "\n");
@@ -251,16 +253,6 @@ function animate() {
     }
     d2.stroke();
     d2.closePath();
-
-    // draw the graphs
-    if (debug_index > 0) { // debug index is greater than zero
-      lC.beginPath();
-      // move to the last velocity
-      lC.moveTo(debug_path['timestamp'][debug_index - 1]['leftvel'], (debug_index-1);  // scale outputs in future
-      lC.lineTo(debug_path['timestamp'][debug_index]['leftvel'], (debug_index)); // scale outputs in future
-      lC.stroke();
-      lC.closePath();
-    }
 
 
 
