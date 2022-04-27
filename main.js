@@ -2,8 +2,8 @@
 /**
  * Pursuit Constants
  */
-let minVel = 20;
-let maxVel = 40;
+let minVel = 5;
+let maxVel = 100;
 let maxAccel = 1000;
 let maxAccel2 = 100; // max increase in inches/s/s
 let turnK = 20;
@@ -247,7 +247,7 @@ function animate() {
     d2.beginPath();
     d2.strokeStyle = "red";
     d2.moveTo(debug_path['timestamp'][debug_index]['robotx']*canvasScale, -(debug_path['timestamp'][debug_index]['roboty']*canvasScale));
-    d2.lineTo(debug_path['timestamp'][debug_index]['robotx']*canvasScale + polar_radius*Math.cos(polar_theta), -(debug_path['timestamp'][debug_index]['roboty']*canvasScale) + polar_radius*Math.sin(polar_theta));
+    d2.lineTo(debug_path['timestamp'][debug_index]['robotx']*canvasScale + polar_radius*Math.cos(polar_theta), -(debug_path['timestamp'][debug_index]['roboty']*canvasScale) - polar_radius*Math.sin(polar_theta));
     d2.stroke();
     d2.closePath();
     // draw the lookahead point
@@ -260,13 +260,10 @@ function animate() {
     d2.beginPath();
     d2.strokeStyle = "gray";
     // calculate the radius of the circle
-    var circle_radius = 1/debug_path['timestamp'][debug_index]['curvature'];
+    var circle_radius = 1/debug_path['timestamp'][debug_index]['curvature']*canvasScale;
     // if curvature is positive
-    if (debug_path['timestamp'][debug_index]['curvature'] > 0) {
-      d2.arc(debug_path['timestamp'][debug_index]['robotx']*canvasScale + (circle_radius*canvasScale)*Math.cos(polar_theta+Math.PI/2), -(debug_path['timestamp'][debug_index]['roboty']*canvasScale) + (circle_radius*canvasScale)*Math.sin(polar_theta+Math.PI/2), Math.abs(circle_radius*canvasScale), 0, Math.PI*2);
-    } else {
-      d2.arc(debug_path['timestamp'][debug_index]['robotx']*canvasScale - (circle_radius*canvasScale)*Math.cos(polar_theta-Math.PI/2), -(debug_path['timestamp'][debug_index]['roboty']*canvasScale) - (circle_radius*canvasScale)*Math.sin(polar_theta-Math.PI/2), Math.abs(circle_radius*canvasScale), 0, Math.PI*2);
-    }
+    // does not print anything if curvature is positive, weird
+    d2.arc(debug_path['timestamp'][debug_index]['robotx']*canvasScale + circle_radius*Math.cos(polar_theta - Math.PI/2), -(debug_path['timestamp'][debug_index]['roboty']*canvasScale) - circle_radius*Math.sin(polar_theta-Math.PI/2), Math.abs(circle_radius), 0, Math.PI*2);
     d2.stroke();
     d2.closePath();
 
