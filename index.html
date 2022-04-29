@@ -15,7 +15,7 @@
 
   <script src="script/jquery.js"></script>
 
-  <div class="sliderContainer" style="" id="sliderContainerDiv">
+  <div class="sliderContainer" id="sliderContainerDiv">
 
     <span id = "slider1_label" class="text-label">tolerance</span>
     <span id="slider1_val" class="text"></span>
@@ -40,11 +40,57 @@
     <span id = "slider6_label" class="text-label">acceleration</span>
     <span id="slider6_val" class="text"></span>
     <input type="range" min="1" max="10000" value="5000" class="slider" id="slider6">
+
+    <span id = "slider7_label" class="text-label">kV</span>
+    <span id="slider7_val" class="text"></span>
+    <input type="range" min="1" max="10000" value="5000" class="slider" id="slider7">
+
+    <span id = "slider8_label" class="text-label">kA</span>
+    <span id="slider8_val" class="text"></span>
+    <input type="range" min="0" max="10000" value="5000" class="slider" id="slider8">
+
+    <span id = "slider9_label" class="text-label">kP</span>
+    <span id="slider9_val" class="text"></span>
+    <input type="range" min="0" max="10000" value="5000" class="slider" id="slider9">
   </div>
+
+
+  <div class="buttons_container" id="buttonContainer">
+
+    <button class="buttons" id="download_user">User Data</button>
+    <button class="buttons" id="download_data">Robot Data</button>
+    <button class="buttons" id="toggle_mode">Debug</button>
+  </div>
+
+
+  <canvas style="display: none" id="d">
+  </canvas>
+
+  <span style="display: none; position: absolute" id="leftVelGraphLabel" class="text-label">Left drive velocity</span>
+  <span style="display: none" id = "kv_label" class="text-label">kV: </span>
+  <span style="display: none" id="kv_val" class="text"></span>
+  <span style="display: none" id = "ka_label" class="text-label">kA: </span>
+  <span style="display: none" id="ka_val" class="text"></span>
+  <span style="display: none" id = "kp_label" class="text-label">kP: </span>
+  <span style="display: none" id="kp_val" class="text"></span>
+  <canvas style="display: none" class="velocity" id="l">
+  </canvas>
+
+  <span style="display: none; position: absolute" id="rightVelGraphLabel" class="text-label">Right drive velocity</span>
+  <canvas style="display: none" class="velocity" id="r">
+  </canvas>
+
 
   <a class="tooltip">
     <span id="tooltip-span"></span>
   </a>
+
+
+  <!-- allow user to select file -->
+  <input type="file" id="file-input" />
+
+  <!-- button to start reading the file -->
+  <button id="read-button">Read File</button>
 
 
   <script src="script/lodash.js"></script>

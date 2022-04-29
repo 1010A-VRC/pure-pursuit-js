@@ -1,9 +1,22 @@
+const debug_path = new Object();
+
 
 /**
  * Canvas DOM setup
  */
 const canvas = document.getElementById("c");
+const danvas = document.getElementById("d");
+const danvas2 = document.getElementById("d");
+const leftVelC = document.getElementById("l");
+const rightVelC = document.getElementById("r");
+const leftVelCL = document.getElementById("leftVelGraphLabel");
+const rightVelCL = document.getElementById("rightVelGraphLabel");
+const buttonContainer = document.getElementById("buttonContainer");
 const c = canvas.getContext("2d");
+const d2 = danvas.getContext("2d");
+const d3 = danvas2.getContext("2d");
+const lC = leftVelC.getContext("2d");
+const rC = rightVelC.getContext("2d");
 
 const field = new Image();
 field.src = './images/field.png';
@@ -14,6 +27,9 @@ var slider3_div = document.getElementById('slider3');
 var slider4_div = document.getElementById('slider4');
 var slider5_div = document.getElementById('slider5');
 var slider6_div = document.getElementById('slider6');
+var slider7_div = document.getElementById('slider7');
+var slider8_div = document.getElementById('slider8');
+var slider9_div = document.getElementById('slider9');
 
 const slider1_val_d = document.getElementById('slider1_val');
 const slider2_val_d = document.getElementById('slider2_val');
@@ -21,6 +37,9 @@ const slider3_val_d = document.getElementById('slider3_val');
 const slider4_val_d = document.getElementById('slider4_val');
 const slider5_val_d = document.getElementById('slider5_val');
 const slider6_val_d = document.getElementById('slider6_val');
+const slider7_val_d = document.getElementById('slider7_val');
+const slider8_val_d = document.getElementById('slider8_val');
+const slider9_val_d = document.getElementById('slider9_val');
 
 const slider1_label_d = document.getElementById('slider1_label');
 const slider2_label_d = document.getElementById('slider2_label');
@@ -28,6 +47,16 @@ const slider3_label_d = document.getElementById('slider3_label');
 const slider4_label_d = document.getElementById('slider4_label');
 const slider5_label_d = document.getElementById('slider5_label');
 const slider6_label_d = document.getElementById('slider6_label');
+const slider7_label_d = document.getElementById('slider7_label');
+const slider8_label_d = document.getElementById('slider8_label');
+const slider9_label_d = document.getElementById('slider9_label');
+
+const kv_label = document.getElementById('kv_label');
+const kv_val = document.getElementById('kv_val');
+const ka_label = document.getElementById('ka_label');
+const ka_val = document.getElementById('ka_val');
+const kp_label = document.getElementById('kp_label');
+const kp_val = document.getElementById('kp_val');
 
 var tooltip = document.getElementById('tooltip-span');
 var slider_container = document.getElementById('sliderContainerDiv');
@@ -51,7 +80,7 @@ const marginOffset = 9; //correction for canvas choords vs window choords. relat
 const waypointWidth = 4;
 const pointWidth = 2;
 
-let sliders = {resolution: 0, scalar: 0, lookahead: 0, turnD: 0, maxDecel: 0, maxAccel: 0};
+let sliders = {resolution: 0, scalar: 0, lookahead: 0, turnD: 0, maxDecel: 0, maxAccel: 0, kV: 0, kA: 0, kP: 0};
 let bottom_style1;
 let bottom_style2;
 let bottom_style3;
@@ -63,17 +92,148 @@ let bottom_style8;
 let left_style;
 
 
+
+
+
+
+
+
+
+
+
+
+
+document.querySelector("#read-button").addEventListener('click', function() {
+	if(document.querySelector("#file-input").files.length == 0) {
+		alert('Error : No file selected');
+		return;
+	}
+
+	// file selected by user
+	let file = document.querySelector("#file-input").files[0];
+
+  // new FileReader object
+	let reader = new FileReader();
+
+	// event fired when file reading finished
+	reader.addEventListener('load', function(e) {
+	   // contents of the file
+	    let text = e.target.result;
+      var inputArray = text.split('\n');
+
+      // save all the points on the path
+      for (var i = 0; i < inputArray.length-1; i++) {
+        var inputArrayFiltered = inputArray[i].split(", ");
+        if (inputArrayFiltered.length == 5) {
+          var firstInputArrayFiltered = inputArray[0].split(", ");
+          debug_path['lookahead'] = firstInputArrayFiltered[0];
+					debug_path['maxspeed'] = firstInputArrayFiltered[1];
+					debug_path['kv'] = firstInputArrayFiltered[2];
+					debug_path['ka'] = firstInputArrayFiltered[3];
+					debug_path['kp'] = firstInputArrayFiltered[4]/*.slice(0, firstInputArrayFiltered[4].length - 1)*/;
+          debug_path['path_points'] = [];
+          debug_path['timestamp'] = [];
+					kv_val.innerHTML = debug_path['kv'];
+					ka_val.innerHTML = debug_path['ka'];
+					kp_val.innerHTML = debug_path['kp'];
+        } else if (inputArrayFiltered.length == 3) {
+          debug_path['path_points'][i-1] = {};
+          debug_path['path_points'][i-1]['x'] = inputArrayFiltered[0];
+          debug_path['path_points'][i-1]['y'] = inputArrayFiltered[1];
+          debug_path['path_points'][i-1]['vel'] = inputArrayFiltered[2].slice(0, inputArrayFiltered[2].length - 1);
+        } else {
+          // format: timestamp, robotx, roboty, roboth lookaheadx, lookaheady, curvature, leftvel, leftactualvel, rightvel, rightactualvel
+          debug_path['timestamp'][debug_path['timestamp'].length] = {};
+          debug_path['timestamp'][debug_path['timestamp'].length-1]['timestamp'] = inputArrayFiltered[0];
+          debug_path['timestamp'][debug_path['timestamp'].length-1]['robotx'] = inputArrayFiltered[1];
+          debug_path['timestamp'][debug_path['timestamp'].length-1]['roboty'] = inputArrayFiltered[2];
+					debug_path['timestamp'][debug_path['timestamp'].length-1]['roboth'] = inputArrayFiltered[3]
+          debug_path['timestamp'][debug_path['timestamp'].length-1]['lookaheadx'] = inputArrayFiltered[4];
+          debug_path['timestamp'][debug_path['timestamp'].length-1]['lookaheady'] = inputArrayFiltered[5];
+          debug_path['timestamp'][debug_path['timestamp'].length-1]['curvature'] = inputArrayFiltered[6];
+					debug_path['timestamp'][debug_path['timestamp'].length-1]['leftvel'] = inputArrayFiltered[7];
+					debug_path['timestamp'][debug_path['timestamp'].length-1]['leftactualvel'] = inputArrayFiltered[8];
+					debug_path['timestamp'][debug_path['timestamp'].length-1]['rightvel'] = inputArrayFiltered[9];
+					debug_path['timestamp'][debug_path['timestamp'].length-1]['rightactualvel'] = inputArrayFiltered[10]/*.slice(0, inputArrayFiltered[10].length - 1)*/;
+        }
+      }
+
+	});
+
+	// read file as text file
+	reader.readAsText(file);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+var update_left_vel = true;
+
+var prev_window_innerwidth = -1;
+var prev_window_innerheight = -1;
+
+
 ///////////////////////
 // Utility Functions //
 ///////////////////////
 function maintainCanvas() {
   if (window.innerWidth < window.innerHeight) {
+		// maintain height
     canvas.height = window.innerWidth - marginOffset * 2;
+    danvas.height = window.innerWidth - marginOffset * 2;
+		if (window.innerWidth != prev_window_innerwidth || window.innerHeight != prev_window_innerheight) {
+			leftVelC.height = window.innerWidth/4;
+			rightVelC.height = window.innerWidth/4;
+			leftVelC.width = leftVelC.height*1.3;
+			rightVelC.width = rightVelC.height*1.3;
+		}
+
+		// maintain width
     canvas.width = canvas.height;
+    danvas.width = canvas.height;
+
+
   } else {
+		// maintain height
     canvas.height = window.innerHeight - marginOffset * 2;
+    danvas.height = window.innerHeight - marginOffset * 2;
+
+		// maintain width
     canvas.width = canvas.height;
+    danvas.width = canvas.height;
+		if (window.innerWidth != prev_window_innerwidth || window.innerHeight != prev_window_innerheight) {
+			leftVelC.height = window.innerHeight/2.5;
+			rightVelC.height = window.innerHeight/2.5;
+			leftVelC.width = window.innerWidth/3;
+			rightVelC.width = window.innerWidth/3;
+		}
   }
+	//leftVelC.style.top = (canvas.height*1.2).toString().concat("px");
+
+	if (window.innerWidth != prev_window_innerwidth || window.innerHeight != prev_window_innerheight) {
+		rightVelC.style.top = (canvas.height/7).toString().concat("px");
+		rightVelC.style.right = (10).toString().concat("px");
+		rightVelCL.style.top = (canvas.height/7).toString().concat("px");
+		rightVelCL.style.right = (rightVelC.width + 20).toString().concat("px");
+		leftVelC.style.top = (canvas.height/7 + rightVelC.height + 20).toString().concat("px");
+		leftVelC.style.right = (10).toString().concat("px");
+		leftVelCL.style.top = (canvas.height/7 + rightVelC.height + 20).toString().concat("px");
+		leftVelCL.style.right = (leftVelC.width + 20).toString().concat("px");
+	}
+//	rightVelC.style.position =
+
+	// update previous window height and width
+	prev_window_innerwidth = window.innerWidth;
+	prev_window_innerheight = window.innerHeight;
 
   canvasScale = (canvas.height * 6.215)/871;
 
@@ -101,11 +261,21 @@ function maintainCanvas() {
   slider6_val.innerHTML = sliders.maxAccel;
   maxAccel2 = sliders.maxAccel;
 
+	sliders.kV = slider7.value / 1000; // this is the value for KV
+	slider7_val.innerHTML = sliders.kV;
+
+	sliders.kA = slider8.value / 1000; // this is the value for KA
+	slider8_val.innerHTML = sliders.kA;
+
+	sliders.kP = slider9.value / 1000; // this is the value for KP
+	slider9_val.innerHTML = sliders.kP;
+
 
   left_style = ("%d", canvas.width + 20 + "px");
   slider_container.style.left = left_style;
 
   c.drawImage(field, 0, 0, canvas.height, canvas.width);
+  d2.drawImage(field, 0, 0, danvas.height, danvas.width);
 
   if (showRect) {
     c.beginPath(); // i think this is part of a library of some sort: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/beginPath
@@ -114,6 +284,92 @@ function maintainCanvas() {
     c.rect(rectangle[0].x, rectangle[0].y, rectangle[1].x - rectangle[0].x, rectangle[1].y - rectangle[0].y);
     c.stroke();
   }
+
+
+
+	// draw the graphs
+	if (typeof debug_path['path_points'] !== 'undefined') {
+		if (update_left_vel == true) {
+			lC.translate(0, leftVelC.height);
+			rC.translate(0, leftVelC.height);
+			for (var debug_index = 1; debug_index < debug_path['timestamp'].length; debug_index++) {
+				var lCHeightScale = leftVelC.height/debug_path['maxspeed'];
+				var lCWidthScale = leftVelC.width/debug_path['timestamp'].length;
+				// draw the target left velocity
+				lC.beginPath();
+				lC.moveTo((debug_index-1)*lCWidthScale, -debug_path['timestamp'][debug_index-1]['leftvel']*lCHeightScale);
+				lC.lineTo(debug_index*lCWidthScale, -debug_path['timestamp'][debug_index]['leftvel']*lCHeightScale);
+				lC.strokeStyle = "blue";
+				lC.stroke();
+				lC.closePath();
+				// draw the actual left velocity
+				lC.beginPath();
+				lC.moveTo((debug_index-1)*lCWidthScale, -debug_path['timestamp'][debug_index-1]['leftactualvel']*lCHeightScale);
+				lC.lineTo(debug_index*lCWidthScale, -debug_path['timestamp'][debug_index]['leftactualvel']*lCHeightScale);
+				lC.strokeStyle = "yellow";
+				lC.stroke();
+				lC.closePath();
+				// draw the target right velocity
+				rC.beginPath();
+				rC.moveTo((debug_index-1)*lCWidthScale, -debug_path['timestamp'][debug_index-1]['rightvel']*lCHeightScale);
+				rC.lineTo(debug_index*lCWidthScale, -debug_path['timestamp'][debug_index]['rightvel']*lCHeightScale);
+				rC.strokeStyle = "blue";
+				rC.stroke();
+				rC.closePath();
+				// draw the actual right velocity
+				rC.beginPath();
+				rC.moveTo((debug_index-1)*lCWidthScale, -debug_path['timestamp'][debug_index-1]['rightactualvel']*lCHeightScale);
+				rC.lineTo(debug_index*lCWidthScale, -debug_path['timestamp'][debug_index]['rightactualvel']*lCHeightScale);
+				rC.strokeStyle = "yellow";
+				rC.stroke();
+				rC.closePath();
+			}
+			update_left_vel = false;
+		}
+	}
+
+
+
+
+
+  // danvas stuff over here
+  // set the zero point to the bottom left of the canvas
+  d2.translate(0, danvas.height);
+
+  //d2.moveTo(0, 0);
+  //d2.lineTo(200, -500);
+  //d2.stroke();
+
+  // draw the path
+
+  if (typeof debug_path['path_points'] !== 'undefined') {
+    d2.fillStyle = "red";
+    d2.beginPath();
+    d2.arc(debug_path['path_points'][0]['x']*canvasScale, -(debug_path['path_points'][0]['y']*canvasScale), 0.5*canvasScale, 0, Math.PI*2);
+    d2.closePath();
+    d2.fill();
+    d2.stroke();
+
+
+    for (var i = 1; i < debug_path['path_points'].length; i++) {
+      d2.beginPath();
+      d2.moveTo(debug_path['path_points'][i-1]['x']*canvasScale, -(debug_path['path_points'][i-1]['y']*canvasScale)); // debug_path['path_points'][i-1]['x']*canvasScale, danvas.height - (debug_path['path_points'][i-1]['y']*canvasScale)
+      d2.lineTo(debug_path['path_points'][i]['x']*canvasScale, -(debug_path['path_points'][i]['y']*canvasScale)); //
+      d2.stroke();
+      d2.closePath();
+      d2.beginPath();
+      d2.arc(debug_path['path_points'][i]['x']*canvasScale, -(debug_path['path_points'][i]['y']*canvasScale), 0.5*canvasScale, 0, Math.PI*2);
+      d2.closePath();
+      d2.fill();
+      d2.stroke();
+
+    }
+  }
+
+
+
+
+
 }
 
 /**
