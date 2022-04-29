@@ -261,13 +261,13 @@ function maintainCanvas() {
   slider6_val.innerHTML = sliders.maxAccel;
   maxAccel2 = sliders.maxAccel;
 
-	sliders.kV = slider7.value / 1000; // this is the value for KV
+	sliders.kV = slider7.value / 10000; // this is the value for KV
 	slider7_val.innerHTML = sliders.kV;
 
-	sliders.kA = slider8.value / 1000; // this is the value for KA
+	sliders.kA = slider8.value / 10000; // this is the value for KA
 	slider8_val.innerHTML = sliders.kA;
 
-	sliders.kP = slider9.value / 1000; // this is the value for KP
+	sliders.kP = slider9.value / 10000; // this is the value for KP
 	slider9_val.innerHTML = sliders.kP;
 
 
