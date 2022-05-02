@@ -3,7 +3,7 @@
  * Pursuit Constants
  */
 let minVel = 5;
-let maxVel = 100;
+let maxVel = 150;
 let maxAccel = 1000;
 let maxAccel2 = 100; // max increase in inches/s/s
 let turnK = 20;
